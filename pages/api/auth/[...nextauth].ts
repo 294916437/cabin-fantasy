@@ -49,49 +49,96 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
-  // callbacks: {
-  //   async signIn({ user, account }) {
-  //     if (account?.provider === "github") {
-  //       await upsertAccount({
-  //         userId: user.id,
-  //         type: account.type,
-  //         provider: account.provider,
-  //         providerAccountId: account.providerAccountId,
-  //         access_token: account.access_token,
-  //         refresh_token: account.refresh_token,
-  //         expires_at: account.expires_at,
-  //         token_type: account.token_type,
-  //         scope: account.scope,
-  //         id_token: account.id_token,
-  //         session_state: account.session_state,
-  //       });
-  //     }
-  //     return true;
-  //   },
-  //   async session({ session, token }) {
-  //     session.user = {
-  //       ...session.user,
-  //       ...token,
-  //     };
-  //     return session;
-  //   },
-  //   async jwt({ token, user, account }) {
-  //     if (account) {
-  //       token.accessToken = account.access_token;
-  //     }
-  //     if (user) {
-  //       token.id = user.id;
-  //     }
-  //     return token;
-  //   },
-  // },
+  callbacks: {
+    async jwt({ token, user }) {
+      // 初次登录时，将用户信息添加到 token 中
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+        token.picture = user.image;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // 将 token 中的信息合并到 session.user 中
+      session.user = {
+        ...session.user,
+        email: token.email,
+        name: token.name,
+      };
+      return session;
+    },
+    async signIn({ user, account }) {
+      try {
+        return await prisma.$transaction(async (prisma) => {
+          let existingUser = await prisma.user.findUnique({
+            where: { email: user?.email as string },
+          });
+
+          if (!existingUser) {
+            // 如果用户不存在，则创建新用户
+            existingUser = await prisma.user.create({
+              data: {
+                email: user?.email,
+                name: user?.name,
+                image: user?.image,
+                emailVerified: new Date(),
+              },
+            });
+          }
+
+          // 检查账户是否已经存在
+          const existingAccount = await prisma.account.findUnique({
+            where: {
+              provider_providerAccountId: {
+                provider: account?.provider as string,
+                providerAccountId: account?.providerAccountId as string,
+              },
+            },
+          });
+
+          if (!existingAccount) {
+            // 如果账户不存在，则创建新账户并关联到用户
+            await prisma.account.create({
+              data: {
+                userId: existingUser?.id,
+                type: account?.type as string,
+                provider: account?.provider as string,
+                providerAccountId: account?.providerAccountId as string,
+                access_token: account?.access_token as string,
+                token_type: account?.token_type as string,
+                scope: account?.scope as string,
+              },
+            });
+          }
+
+          return true;
+        });
+      } catch (error: any) {
+        console.log("🚀 ~ file: [...nextauth].ts:95 ~ signIn ~ error", error);
+        return false;
+      }
+    },
+
+    //第三方登录的回调URL
+    async redirect({ url, baseUrl }) {
+      // 处理重定向逻辑
+      if (url.startsWith(baseUrl)) {
+        return url;
+      } else if (url.startsWith("/")) {
+        return new URL(url, baseUrl).toString();
+      }
+      return baseUrl;
+    },
+  },
   pages: {
     signIn: "/",
   },
-  // process.env.NODE_ENV === "development"
-  debug: true,
+  debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
+    maxAge: 3 * 24 * 60 * 60,
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

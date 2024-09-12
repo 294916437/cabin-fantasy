@@ -11,24 +11,19 @@ import "../styles/globals.css";
 import getCurrentUser from "./actions/getCurrentUser";
 
 export const metadata = {
-  title: "Airbnb Clone",
-  description: "Airbnb Clone",
-  icons: "https://www.seekpng.com/png/full/957-9571167_airbnb-png.png",
+  title: "Cabin-Fantasy",
+  description: "Cabin Fantasy for all your rental needs",
+  icons: "/assets/logo.png",
 };
-
 const font = Nunito({
   subsets: ["latin"],
 });
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const currentUser = await getCurrentUser();
 
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={font.className}>
         <ClientOnly>
           <ToastContainerBar />
@@ -38,7 +33,7 @@ export default async function RootLayout({
           <RentModal />
           <Navbar currentUser={currentUser} />
         </ClientOnly>
-        <div className="pb-20 pt-28">{children}</div>
+        <div className='pb-20 pt-28'>{children}</div>
         <Footer />
       </body>
     </html>

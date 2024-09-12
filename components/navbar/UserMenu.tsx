@@ -47,7 +47,7 @@ function UserMenu({ currentUser }: Props) {
           <AiOutlineMenu />
           <div className='hidden md:block'>
             {currentUser ? (
-              <Avatar src={currentUser?.image!} userName={currentUser?.name} />
+              <Avatar src={currentUser?.image} userName={currentUser?.name} />
             ) : (
               <Image
                 className='rounded-full'
@@ -72,7 +72,7 @@ function UserMenu({ currentUser }: Props) {
                   label='My reservations'
                 />
                 <MenuItem onClick={() => router.push("/properties")} label='My properties' />
-                <MenuItem onClick={onRent} label='Airbnb your home' />
+                <MenuItem onClick={onRent} label='rent your carbin' />
                 <hr />
                 <MenuItem onClick={() => signOut()} label='Logout' />
               </>
