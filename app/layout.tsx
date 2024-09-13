@@ -9,7 +9,7 @@ import Navbar from "@/components/navbar/Navbar";
 import { Nunito } from "next/font/google";
 import "../styles/globals.css";
 import getCurrentUser from "./actions/getCurrentUser";
-
+import { Analytics } from "@vercel/analytics/react";
 export const metadata = {
   title: "Cabin-Fantasy",
   description: "Cabin Fantasy for all your rental needs",
@@ -35,6 +35,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </ClientOnly>
         <div className='pb-20 pt-28'>{children}</div>
         <Footer />
+        <Analytics/>
       </body>
     </html>
   );
