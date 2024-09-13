@@ -1,13 +1,14 @@
+'use server';
 import prisma from "@/lib/prismadb";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 export async function getSession() {
- try {
-   return await getServerSession(authOptions);
- } catch (error) {
-   console.error("🚀 ~ file: getCurrentUser.ts:8 ~ getSession ~ error:", error);
-   return null;
- }
+  try {
+    return await getServerSession(authOptions);
+  } catch (error) {
+    console.error("🚀 ~ file: getCurrentUser.ts:8 ~ getSession ~ error:", error);
+    return null;
+  }
 }
 
 export default async function getCurrentUser() {

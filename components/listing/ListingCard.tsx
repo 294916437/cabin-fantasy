@@ -74,40 +74,33 @@ function ListingCard({
         ease: [0, 0.71, 0.2, 1.01],
       }}
       onClick={() => router.push(`/listings/${data.id}`)}
-      className="col-span-1 cursor-pointer group"
-    >
-      <div className="flex flex-col gap-2 w-full">
-        <div className="aspect-square w-full relative overflow-hidden rounded-xl">
+      className='col-span-1 cursor-pointer group'>
+      <div className='flex flex-col gap-2 w-full'>
+        <div className='aspect-square w-full relative overflow-hidden rounded-xl'>
           <Image
             fill
             sizes={"264"}
-            className="object-cover h-full w-full group-hover:scale-110 transition"
+            className='object-cover h-full w-full group-hover:scale-110 transition'
             src={data.imageSrc}
-            property="true"
-            alt="listing"
+            property='true'
+            alt='listing'
+            priority
           />
-          <div className="absolute top-3 right-3">
+          <div className='absolute top-3 right-3'>
             <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>
         </div>
-        <div className="font-semibold text-lg">
+        <div className='font-semibold text-lg'>
           {location?.region}, {location?.label}
         </div>
-        <div className="font-light text-neutral-500">
-          {reservationDate || data.category}
-        </div>
-        <div className="flex flex-row items-center gap-">
-          <div className="flex gap-1 font-semibold">
-            ${price} {!reservation && <div className="font-light"> Night</div>}
+        <div className='font-light text-neutral-500'>{reservationDate || data.category}</div>
+        <div className='flex flex-row items-center gap-'>
+          <div className='flex gap-1 font-semibold'>
+            ${price} {!reservation && <div className='font-light'> Night</div>}
           </div>
         </div>
         {onAction && actionLabel && (
-          <Button
-            disabled={disabled}
-            small
-            label={actionLabel}
-            onClick={handleCancel}
-          />
+          <Button disabled={disabled} small label={actionLabel} onClick={handleCancel} />
         )}
       </div>
     </motion.div>
