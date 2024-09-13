@@ -43,16 +43,16 @@ function SearchModal({}: Props) {
       dynamic(() => import("../Map"), {
         ssr: false,
       }),
-    [location]
+    []
   );
 
   const onBack = () => {
     setStep((value) => value - 1);
   };
 
-  const onNext = () => {
+  const onNext = useCallback(() => {
     setStep((value) => value + 1);
-  };
+  }, []);
 
   const onSubmit = useCallback(async () => {
     if (step !== STEPS.INFO) {
@@ -123,11 +123,8 @@ function SearchModal({}: Props) {
   }, [step]);
 
   let bodyContent = (
-    <div className="flex flex-col gap-8">
-      <Heading
-        title="Where do you wanna go?"
-        subtitle="Find the perfect location!"
-      />
+    <div className='flex flex-col gap-8'>
+      <Heading title='Where do you wanna go?' subtitle='Find the perfect location!' />
       <CountrySelect
         value={location}
         onChange={(value) => setLocation(value as CountrySelectValue)}
@@ -139,35 +136,29 @@ function SearchModal({}: Props) {
 
   if (step === STEPS.DATE) {
     bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="When do you plan to go?"
-          subtitle="Make sure everyone is free!"
-        />
-        <Calendar
-          onChange={(value) => setDateRange(value.selection)}
-          value={dateRange}
-        />
+      <div className='flex flex-col gap-8'>
+        <Heading title='When do you plan to go?' subtitle='Make sure everyone is free!' />
+        <Calendar onChange={(value) => setDateRange(value.selection)} value={dateRange} />
       </div>
     );
   }
 
   if (step === STEPS.INFO) {
     bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading title="More information" subtitle="Find your perfect place!" />
+      <div className='flex flex-col gap-8'>
+        <Heading title='More information' subtitle='Find your perfect place!' />
         <Counter
           onChange={(value) => setGuestCount(value)}
           value={guestCount}
-          title="Guests"
-          subtitle="How many guests are coming?"
+          title='Guests'
+          subtitle='How many guests are coming?'
         />
         <hr />
         <Counter
           onChange={(value) => setRoomCount(value)}
           value={roomCount}
-          title="Rooms"
-          subtitle="How many rooms do you need?"
+          title='Rooms'
+          subtitle='How many rooms do you need?'
         />
         <hr />
         <Counter
@@ -175,8 +166,8 @@ function SearchModal({}: Props) {
             setBathroomCount(value);
           }}
           value={bathroomCount}
-          title="Bathrooms"
-          subtitle="How many bahtrooms do you need?"
+          title='Bathrooms'
+          subtitle='How many bahtrooms do you need?'
         />
       </div>
     );
@@ -189,8 +180,8 @@ function SearchModal({}: Props) {
       onSubmit={onSubmit}
       secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
       secondaryActionLabel={secondActionLabel}
-      title="Filters"
-      actionLabel="Search"
+      title='Filters'
+      actionLabel='Search'
       body={bodyContent}
     />
   );

@@ -2,7 +2,12 @@ import prisma from "@/lib/prismadb";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 export async function getSession() {
-  return await getServerSession(authOptions);
+ try {
+   return await getServerSession(authOptions);
+ } catch (error) {
+   console.error("🚀 ~ file: getCurrentUser.ts:8 ~ getSession ~ error:", error);
+   return null;
+ }
 }
 
 export default async function getCurrentUser() {
@@ -30,6 +35,7 @@ export default async function getCurrentUser() {
       emailVerified: currentUser.emailVerified?.toISOString() || null,
     };
   } catch (error: any) {
-    console.log("🚀 ~ file: getCurrentUser.ts:13 ~ getCurrentUser ~ error:", error);
+    console.log("🚀 ~ file: getCurrentUser.ts:33 ~ getCurrentUser ~ error:", error);
+    return null;
   }
 }
