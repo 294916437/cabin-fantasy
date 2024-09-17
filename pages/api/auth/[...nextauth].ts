@@ -5,6 +5,8 @@ import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
+import cors, { runMiddleware } from "@/lib/cors";
+import { NextApiRequest, NextApiResponse } from "next";
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -145,5 +147,9 @@ export const authOptions: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  //添加跨域中间件
+  await runMiddleware(req, res, cors);
 
-export default NextAuth(authOptions);
+  return NextAuth(req, res, authOptions);
+}
