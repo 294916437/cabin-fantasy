@@ -70,6 +70,9 @@ export const authOptions: AuthOptions = {
       return session;
     },
     async signIn({ user, account }) {
+      if (account?.provider !== "github") {
+        return false;
+      }
       try {
         return await prisma.$transaction(async (prisma) => {
           let existingUser = await prisma.user.findUnique({
@@ -116,7 +119,7 @@ export const authOptions: AuthOptions = {
           return true;
         });
       } catch (error: any) {
-        console.log("🚀 ~ file: [...nextauth].ts:95 ~ signIn ~ error", error);
+        console.log("🚀 ~ file: [...nextauth].ts ~ signIn ~ error", error);
         return false;
       }
     },
@@ -135,7 +138,7 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/",
   },
-  debug: process.env.NODE_ENV === "development",
+  debug: process.env.NEXTAUTH_DEBUG === "true",
   session: {
     strategy: "jwt",
     maxAge: 3 * 24 * 60 * 60,

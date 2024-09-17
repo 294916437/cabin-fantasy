@@ -10,16 +10,16 @@ function Footer({}: Props) {
   const itemData = [
     [
       "ABOUT",
-      "Newsroom",
-      "Learn about new features",
-      "Letter from our founders",
+      "Carbin Fantasy",
+      "Learn about new services",
+      "Letter from our teams",
       "Careers",
-      "Investors",
+      "Creators",
     ],
     [
       "Support",
       "Help Center",
-      "AirCover",
+      "Cabin Rent",
       "Cancellation options",
       "Safety information",
       "Report a neighborhood concern",
@@ -27,18 +27,18 @@ function Footer({}: Props) {
     [
       "Community",
       "Newsroom",
-      "Learn about new features",
-      "Letter from our founders",
+      "Learn about new services",
+      "Letter from our teams",
       "Careers",
-      "Investors",
+      "Creators",
     ],
     [
-      "Hosting",
-      "Try hosting",
-      "AirCover for Hosts",
-      "Explore hosting resources",
+      "Rent out",
+      "Try renting",
+      "Cabin Rent",
+      "Explore renting resources",
       "Safety information",
-      "How to host responsibly",
+      "How to rent responsibly",
     ],
   ];
 
