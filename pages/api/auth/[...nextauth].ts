@@ -5,8 +5,6 @@ import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import cors, { runMiddleware } from "@/lib/cors";
-import { NextApiRequest, NextApiResponse } from "next";
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -72,57 +70,60 @@ export const authOptions: AuthOptions = {
       return session;
     },
     async signIn({ user, account }) {
-      if (account?.provider !== "github") {
-        return false;
-      }
-      try {
-        return await prisma.$transaction(async (prisma) => {
-          let existingUser = await prisma.user.findUnique({
-            where: { email: user?.email as string },
-          });
+      if (account?.provider === "credentials") {
+        console.info("Using Credentials provider");
+        return true;
+      } else {
+         console.info("Using GitHub provider");
+        try {
+          return await prisma.$transaction(async (prisma) => {
+            let existingUser = await prisma.user.findUnique({
+              where: { email: user?.email as string },
+            });
 
-          if (!existingUser) {
-            // 如果用户不存在，则创建新用户
-            existingUser = await prisma.user.create({
-              data: {
-                email: user?.email,
-                name: user?.name,
-                image: user?.image,
-                emailVerified: new Date(),
+            if (!existingUser) {
+              // 如果用户不存在，则创建新用户
+              existingUser = await prisma.user.create({
+                data: {
+                  email: user?.email,
+                  name: user?.name,
+                  image: user?.image,
+                  emailVerified: new Date(),
+                },
+              });
+            }
+
+            // 检查账户是否已经存在
+            const existingAccount = await prisma.account.findUnique({
+              where: {
+                provider_providerAccountId: {
+                  provider: account?.provider as string,
+                  providerAccountId: account?.providerAccountId as string,
+                },
               },
             });
-          }
 
-          // 检查账户是否已经存在
-          const existingAccount = await prisma.account.findUnique({
-            where: {
-              provider_providerAccountId: {
-                provider: account?.provider as string,
-                providerAccountId: account?.providerAccountId as string,
-              },
-            },
+            if (!existingAccount) {
+              // 如果账户不存在，则创建新账户并关联到用户
+              await prisma.account.create({
+                data: {
+                  userId: existingUser?.id,
+                  type: account?.type as string,
+                  provider: account?.provider as string,
+                  providerAccountId: account?.providerAccountId as string,
+                  access_token: account?.access_token as string,
+                  token_type: account?.token_type as string,
+                  scope: account?.scope as string,
+                },
+              });
+            }
+            console.log("User signed in successfully");
+            return true;
           });
-
-          if (!existingAccount) {
-            // 如果账户不存在，则创建新账户并关联到用户
-            await prisma.account.create({
-              data: {
-                userId: existingUser?.id,
-                type: account?.type as string,
-                provider: account?.provider as string,
-                providerAccountId: account?.providerAccountId as string,
-                access_token: account?.access_token as string,
-                token_type: account?.token_type as string,
-                scope: account?.scope as string,
-              },
-            });
-          }
-
-          return true;
-        });
-      } catch (error: any) {
-        console.log("🚀 ~ file: [...nextauth].ts ~ signIn ~ error", error);
-        return false;
+        } catch (error: any) {
+          console.log("🚀 ~ file: [...nextauth].ts ~ Error during signIn:", error);
+          return false;
+        }
       }
     },
 
@@ -139,6 +140,7 @@ export const authOptions: AuthOptions = {
   },
   pages: {
     signIn: "/",
+    error: "/error",
   },
   debug: process.env.NEXTAUTH_DEBUG === "true",
   session: {
@@ -147,9 +149,4 @@ export const authOptions: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  //添加跨域中间件
-  await runMiddleware(req, res, cors);
-
-  return NextAuth(req, res, authOptions);
-}
+export default NextAuth(authOptions);

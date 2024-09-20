@@ -47,6 +47,7 @@ function LoginModal({}: Props) {
         router.refresh();
         loginModel.onClose();
       } else if (callback?.error) {
+        console.log(callback.error);
         toast.error("Something Went Wrong");
       }
     });

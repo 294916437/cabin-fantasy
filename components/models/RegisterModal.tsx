@@ -5,10 +5,9 @@ import useRegisterModal from "@/hook/useRegisterModal";
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { AiFillFacebook } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
-
+import { AiFillGithub } from "react-icons/ai";
 import { signIn } from "next-auth/react";
 import Button from "../Button";
 import Heading from "../Heading";
@@ -91,28 +90,24 @@ function RegisterModal({}: Props) {
   );
 
   const footerContent = (
-    <div className="flex flex-col gap-4 mt-3">
+    <div className='flex flex-col gap-4 mt-3'>
       <hr />
       <Button
         outline
-        label="Continue with Google"
+        label='Continue with Google'
         icon={FcGoogle}
-        onClick={() => signIn("google")}
+        onClick={() => signIn("google", { callbackUrl: process.env.NEXTAUTH_URL as string })}
       />
       <Button
         outline
-        label="Continue with Facebook"
-        icon={AiFillFacebook}
-        onClick={() => signIn("facebook")}
-        isColor
+        label='Continue with Github'
+        icon={AiFillGithub}
+        onClick={() => signIn("github", { callbackUrl: process.env.NEXTAUTH_URL as string })}
       />
-      <div className="text-neutral-500 text-center mt-4 font-light">
+      <div className='text-neutral-500 text-center mt-4 font-light'>
         <div>
           Already have an account?{" "}
-          <span
-            onClick={toggle}
-            className="text-neutral-800 cursor-pointer hover:underline"
-          >
+          <span onClick={toggle} className='text-neutral-800 cursor-pointer hover:underline'>
             Log in
           </span>
         </div>
