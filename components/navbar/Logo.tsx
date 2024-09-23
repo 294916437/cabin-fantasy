@@ -18,7 +18,7 @@ function Logo({}: Props) {
         width={64}
         src='/assets/logo.png'
       />
-      <span className='text-xl font-semibold text-gray-800'>CabinFantasy</span>
+      <span className='text-xl font-semibold text-gray-800'>Cabin Fantasy</span>
     </div>
   );
 }

@@ -19,7 +19,7 @@ function ImageUpload({ onChange, value }: Props) {
     (result: any) => {
       onChange(result.info.secure_url);
     },
-    [onChange]
+    [onChange,value]
   );
 
   return (

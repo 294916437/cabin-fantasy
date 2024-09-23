@@ -11,7 +11,7 @@ function ToastContainerBar({}: Props) {
   return (
     <>
       <ToastContainer
-        position="bottom-left"
+        position="bottom-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}

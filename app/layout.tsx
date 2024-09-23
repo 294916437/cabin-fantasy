@@ -5,13 +5,14 @@ import LoginModal from "@/components/models/LoginModal";
 import RegisterModal from "@/components/models/RegisterModal";
 import RentModal from "@/components/models/RentModal";
 import SearchModal from "@/components/models/SearchModal";
+import ProfileModal from "@/components/models/ProfileModal";
 import Navbar from "@/components/navbar/Navbar";
 import { Nunito } from "next/font/google";
 import "../styles/globals.css";
 import getCurrentUser from "./actions/getCurrentUser";
 import { Analytics } from "@vercel/analytics/react";
 export const metadata = {
-  title: "Cabin-Fantasy",
+  title: "Cabin Fantasy",
   description: "Cabin Fantasy for all your rental needs",
   icons: "/assets/logo.png",
 };
@@ -31,6 +32,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <RegisterModal />
           <LoginModal />
           <RentModal />
+          <ProfileModal currentUser={currentUser}/>
           <Navbar currentUser={currentUser} />
         </ClientOnly>
         <div className='pb-20 pt-28'>{children}</div>
