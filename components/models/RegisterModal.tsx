@@ -39,14 +39,29 @@ function RegisterModal({}: Props) {
     axios
       .post("/api/register", data)
       .then(() => {
-        toast.success("Success!");
+        toast.success("Register Successfully!");
         loginModel.onOpen();
         registerModel.onClose();
       })
-      .catch((err: any) => toast.error("Something Went Wrong"))
+      .catch((error) => {
+        if (axios.isAxiosError(error) && error.response) {
+          const status = error.response.status;
+          switch (status) {
+            case 400:
+              toast.error("Email already registered");
+              break;
+            case 500:
+              toast.error("Internal server error");
+              break;
+            default:
+              toast.error("An unexpected error occurred");
+          }
+        } else {
+          toast.error("Network error");
+        }
+      })
       .finally(() => {
         setIsLoading(false);
-        toast.success("Register Successfully");
       });
   };
 
@@ -56,31 +71,27 @@ function RegisterModal({}: Props) {
   }, [loginModel, registerModel]);
 
   const bodyContent = (
-    <div className="flex flex-col gap-4">
-      <Heading
-        title="Welcome to Airbnb-Clone"
-        subtitle="Create an Account!"
-        center
-      />
+    <div className='flex flex-col gap-4'>
+      <Heading title='Welcome to Cabin Fantasy' subtitle='Create an Account!' center />
       <Input
-        id="email"
-        label="Email Address"
+        id='email'
+        label='Email Address'
         disabled={isLoading}
         register={register}
         errors={errors}
         required
       />
       <Input
-        id="name"
-        label="User Name"
+        id='name'
+        label='User Name'
         disabled={isLoading}
         register={register}
         errors={errors}
         required
       />
       <Input
-        id="password"
-        label="Password"
+        id='password'
+        label='Password'
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -119,8 +130,8 @@ function RegisterModal({}: Props) {
     <Modal
       disabled={isLoading}
       isOpen={registerModel.isOpen}
-      title="Register"
-      actionLabel="Continue"
+      title='Register'
+      actionLabel='Continue'
       onClose={registerModel.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

@@ -1,8 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
 
-export default async function handler(request: Request) {
+export async function POST(request: Request) {
   const body = await request.json();
   const { email, name, image } = body;
 

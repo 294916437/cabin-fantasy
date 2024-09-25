@@ -10,6 +10,7 @@ import Modal from "./Modal";
 import { SafeUser } from "@/types";
 import ImageUpload from "../inputs/ImageUpload";
 import { BiEnvelope, BiUser } from "react-icons/bi";
+
 type Props = {
   currentUser?: SafeUser | null;
 };
@@ -30,20 +31,23 @@ function ProfileModal({ currentUser }: Props) {
       image: currentUser?.image || "",
     },
   });
+
   useEffect(() => {
     setValue("name", currentUser?.name);
-    setValue("avatar", currentUser?.image);
+    setValue("image", currentUser?.image);
   }, [currentUser, setValue]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
+    // 只发送需要的字段
+    const { name, email, image } = data;
+
     axios
-      .post("/api/profile", data)
+      .post("/api/profile", { name, email, image })
       .then((res) => {
+        console.log(res.data);
         toast.success("Profile updated!");
-        setValue("name", res.data.name);
-        setValue("avatar", res.data.image);
         profileModel.onClose();
       })
       .catch(() => {
@@ -64,10 +68,7 @@ function ProfileModal({ currentUser }: Props) {
           className='w-120 h-120 rounded-md flex-shrink-1'
           alt='Avatar'
         />
-        <ImageUpload
-          onChange={(value) => setValue("ImageSrc", value)}
-          value={watch("avatar")}
-        />
+        <ImageUpload onChange={(value) => setValue("image", value)} value={watch("image")} />
       </div>
       <Input
         id='email'
