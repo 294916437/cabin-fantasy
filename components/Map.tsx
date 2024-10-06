@@ -24,6 +24,9 @@ type Props = {
 };
 
 function Map({ center, locationValue }: Props) {
+  // 检查 locationValue 是否为有效的字符串
+  const isValidLocationValue = typeof locationValue === 'string' && locationValue.trim() !== '';
+
   return (
     <MapContainer
       center={(center as L.LatLngExpression) || [51, -0.09]}
@@ -35,7 +38,7 @@ function Map({ center, locationValue }: Props) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {locationValue ? (
+      {isValidLocationValue ? (
         <>
           {center && (
             <Marker position={center as L.LatLngExpression}>

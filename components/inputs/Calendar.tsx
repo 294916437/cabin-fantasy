@@ -15,7 +15,7 @@ type Props = {
 function Calendar({ value, onChange, disabledDates }: Props) {
   return (
     <DateRange
-      rangeColors={["#262626"]}
+      rangeColors={["#2196F3"]}
       ranges={[value]}
       date={new Date()}
       onChange={onChange}

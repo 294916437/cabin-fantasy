@@ -13,7 +13,7 @@ import getCurrentUser from "./actions/getCurrentUser";
 import { Analytics } from "@vercel/analytics/react";
 export const metadata = {
   title: "Cabin Fantasy",
-  description: "Cabin Fantasy for all your rental needs",
+  description: "Cabin Fantasy for your renting and living needs",
   icons: "/assets/logo.png",
 };
 const font = Nunito({

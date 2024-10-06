@@ -152,7 +152,7 @@ function RentModal({}: Props) {
           value={location}
           onChange={(value) => setCustomValue("location", value)}
         />
-        <Map center={location?.latlng} />
+        <Map center={location?.latlng} locationValue={location} />
       </div>
     );
   }
@@ -195,7 +195,7 @@ function RentModal({}: Props) {
           title='Add a photo of your place looks like'
           subtitle='only allow to image no more than 10MB'
         />
-        <ImageUpload onChange={(value) => setCustomValue("imageSrc", value)} value={imageSrc} />
+        <ImageUpload onChange={(value) => setCustomValue("imageSrc", value)} value={imageSrc} showValue={true} />
       </div>
     );
   }

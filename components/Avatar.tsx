@@ -10,22 +10,22 @@ type Props = {
 
 function Avatar({ src, userName }: Props) {
   return (
-    <div>
+    <div className="relative w-10 h-10">
       {src ? (
-        <Image className='rounded-full' height={30} width={30} alt='hasImage' src={src} />
+        <Image className='rounded-full' fill  alt='hasImage' src={src} />
       ) : userName ? (
         <Image
           className='rounded-full'
-          height={30}
-          width={30}
+          fill
+         
           alt='nameImage'
           src={`https://ui-avatars.com/api/?name=${userName}`}
         />
       ) : (
         <Image
           className='rounded-full'
-          height={30}
-          width={30}
+          fill
+    
           alt='noUser'
           src='/assets/avatar.png'
         />

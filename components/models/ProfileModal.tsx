@@ -39,10 +39,7 @@ function ProfileModal({ currentUser }: Props) {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-
-    // 只发送需要的字段
     const { name, email, image } = data;
-
     axios
       .post("/api/profile", { name, email, image })
       .then((res) => {
@@ -68,7 +65,7 @@ function ProfileModal({ currentUser }: Props) {
           className='w-120 h-120 rounded-md flex-shrink-1'
           alt='Avatar'
         />
-        <ImageUpload onChange={(value) => setValue("image", value)} value={watch("image")} />
+        <ImageUpload onChange={(value) => setValue("image", value)} value={watch("image")} showValue={false}/>
       </div>
       <Input
         id='email'

@@ -1,6 +1,7 @@
 import prisma from "@/lib/prismadb";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from "bcrypt";
+import { toast } from "react-toastify";
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -25,6 +26,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
+          toast.error("Email and Password get Lost");
           throw new Error("Invalid credentials");
         }
 
@@ -35,6 +37,7 @@ export const authOptions: AuthOptions = {
         });
 
         if (!user || !user?.hashedPassword) {
+          toast.error("Wrong Password or Email");
           throw new Error("Invalid credentials");
         }
 
@@ -43,6 +46,7 @@ export const authOptions: AuthOptions = {
           user.hashedPassword
         );
         if (!isCorrectPassword) {
+          toast.error("Wrong Password !!!");
           throw new Error("Invalid credentials");
         }
         return user;
@@ -74,7 +78,7 @@ export const authOptions: AuthOptions = {
         console.info("Using Credentials provider");
         return true;
       } else {
-         console.info("Using GitHub provider");
+        console.info("Using GitHub provider");
         try {
           return await prisma.$transaction(async (prisma) => {
             let existingUser = await prisma.user.findUnique({

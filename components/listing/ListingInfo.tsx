@@ -45,8 +45,8 @@ function ListingInfo({
   return (
     <div className="col-span-4 flex flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <div className=" text-xl font-semibold flex flex-row items-center gap-2">
-          <div>Hosted by {user?.name}</div>
+        <div className="flex flex-row items-center gap-2">
+          <span className="text-xl font-semibold">Hosted by {user?.name}</span>
           <Avatar src={user?.image} userName={user?.name} />
         </div>
         <div className="flex flex-row items-center gap-4 font-light text-neutral-500">
@@ -65,8 +65,8 @@ function ListingInfo({
       )}
       <hr />
       <div className="flex flex-col">
-        <p className="text-4xl font-bold text-[#FF5A5F]">
-          air<span className="text-black">cover</span>
+        <p className="text-4xl font-bold text-first">
+          Cabin<span className="text-black">Safety</span>
         </p>
         <p className="text-neutral-500 pt-3">
           Every booking includes free protection from Host cancellations,

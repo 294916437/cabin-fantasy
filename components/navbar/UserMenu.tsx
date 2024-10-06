@@ -74,7 +74,7 @@ function UserMenu({ currentUser }: Props) {
         <div className='flex flex-col cursor-pointer'>
           {currentUser ? (
             <>
-              <MenuItem onClick={profileModel.onOpen} label='My Profile' />
+              <MenuItem onClick={profileModel.onOpen} label='My profile' />
               <hr />
               <MenuItem onClick={() => router.push("/trips")} label='My trips' />
               <MenuItem onClick={() => router.push("/favorites")} label='My favorites' />
