@@ -75,10 +75,10 @@ export const authOptions: AuthOptions = {
     },
     async signIn({ user, account }) {
       if (account?.provider === "credentials") {
-        console.info("Using Credentials provider");
+        console.info("Using Credentials Provider");
         return true;
-      } else {
-        console.info("Using GitHub provider");
+      } else{
+        console.info("Using GitHub Provider");
         try {
           return await prisma.$transaction(async (prisma) => {
             let existingUser = await prisma.user.findUnique({
@@ -125,7 +125,7 @@ export const authOptions: AuthOptions = {
             return true;
           });
         } catch (error: any) {
-          console.log("🚀 ~ file: [...nextauth].ts ~ Error during signIn:", error);
+          console.log("🚀 ~ file: [...nextauth].ts ~ Error during oauth signIn:", error);
           return false;
         }
       }
@@ -133,11 +133,13 @@ export const authOptions: AuthOptions = {
 
     //第三方登录的回调URL
     async redirect({ url, baseUrl }) {
-      // 处理重定向逻辑
       if (url.startsWith(baseUrl)) {
+        console.log(url);
         return url;
       } else if (url.startsWith("/")) {
-        return new URL(url, baseUrl).toString();
+        let result=new URL(url, baseUrl).toString();
+        console.log(result);
+        return result;
       }
       return baseUrl;
     },

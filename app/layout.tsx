@@ -12,7 +12,7 @@ const RegisterModal = dynamic(() => import('@/components/models/RegisterModal'),
 const RentModal = dynamic(() => import('@/components/models/RentModal'), { ssr: false });
 const SearchModal = dynamic(() => import('@/components/models/SearchModal'), { ssr: false });
 const ProfileModal = dynamic(() => import('@/components/models/ProfileModal'), { ssr: false });
-const Navbar = dynamic(() => import('@/components/navbar/Navbar'));
+const Navbar = dynamic(() => import('@/components/navbar/Navbar'),{ ssr: false });
 
 export const metadata = {
   title: "Cabin Fantasy",
