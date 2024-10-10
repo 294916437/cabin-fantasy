@@ -233,6 +233,7 @@ function RentModal({}: Props) {
           id='price'
           label='Price'
           type='number'
+          min={0}
           disabled={isLoading}
           register={register}
           errors={errors}
@@ -256,7 +257,7 @@ function RentModal({}: Props) {
     <Modal
       disabled={isLoading}
       isOpen={rentModel.isOpen}
-      title='Airbnb your home!'
+      title='Rent your home!'
       actionLabel={actionLabel}
       onSubmit={handleSubmit(onSubmit)}
       secondaryActionLabel={secondActionLabel}

@@ -10,13 +10,14 @@ import Modal from "./Modal";
 import { SafeUser } from "@/types";
 import ImageUpload from "../inputs/ImageUpload";
 import { BiEnvelope, BiUser } from "react-icons/bi";
-
+import { useRouter } from "next/navigation";
 type Props = {
   currentUser?: SafeUser | null;
 };
 
 function ProfileModal({ currentUser }: Props) {
   const profileModel = useProfileModal();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -43,7 +44,7 @@ function ProfileModal({ currentUser }: Props) {
     axios
       .post("/api/profile", { name, email, image })
       .then((res) => {
-        console.log(res.data);
+        router.refresh();
         toast.success("Profile updated!");
         profileModel.onClose();
       })

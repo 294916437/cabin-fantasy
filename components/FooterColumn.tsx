@@ -28,6 +28,7 @@ function FooterColumn({ index, data }: Props) {
       whileInView={{ opacity: 1, x: 0 }}
       className='space-y-4 text-xs text-gray-800'>
       {columnItems}
+     
     </motion.div>
   );
 }

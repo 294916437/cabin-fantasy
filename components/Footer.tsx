@@ -51,6 +51,17 @@ function Footer({}: Props) {
       <div className='grid grid-cols-1 md:grid-cols-4 gap-y-10 px-32 py-14 bg-gray-100 text-gray-600'>
         {footerColumns}
       </div>
+      <div className='flex justify-center items-center bg-gray-100 m-auto w-full gap-8 text-first'>
+        <p >
+          &copy;By Asams Morgan All rights reserved
+        </p>
+        <p className="font-bold underline  cursor-pointer">
+          <a href="https://github.com/294916437/cabin-fantasy" target="_blank" rel="noopener noreferrer">
+           Go To GitHub Repository
+          </a>
+          </p>
+          
+      </div>
     </ClientOnly>
   );
 }

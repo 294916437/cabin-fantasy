@@ -26,7 +26,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          toast.error("Email and Password get Lost");
+          toast.error("Email and Password get Missing");
           throw new Error("Invalid credentials");
         }
 
@@ -46,7 +46,7 @@ export const authOptions: AuthOptions = {
           user.hashedPassword
         );
         if (!isCorrectPassword) {
-          toast.error("Wrong Password !!!");
+          toast.error("Wrong Password");
           throw new Error("Invalid credentials");
         }
         return user;
@@ -78,7 +78,7 @@ export const authOptions: AuthOptions = {
         console.info("Using Credentials Provider");
         return true;
       } else{
-        console.info("Using GitHub Provider");
+        console.info("Using GitHub or Google Provider");
         try {
           return await prisma.$transaction(async (prisma) => {
             let existingUser = await prisma.user.findUnique({
@@ -121,7 +121,7 @@ export const authOptions: AuthOptions = {
                 },
               });
             }
-            console.log("User signed in successfully");
+            console.log("Signing in successfully");
             return true;
           });
         } catch (error: any) {
