@@ -51,6 +51,7 @@ function Input({
         value={value}
         onChange={onChange}
         readOnly={readonly}
+        aria-label={label}
         className={`peer w-full p-4 pt-6 font-light bg-white border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed ${
           prependIcon ? "pl-12" : "pl-4"
         } ${errors[id] ? "border-rose-500" : "border-neutral-300"} ${

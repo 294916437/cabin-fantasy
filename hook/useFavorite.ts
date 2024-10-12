@@ -33,13 +33,15 @@ function useFavorite({ listingId, currentUser }: Props) {
 
         if (hasFavorite) {
           request = () => axios.delete(`/api/favorites/${listingId}`);
+          toast.success("Dislike it");
         } else {
           request = () => axios.post(`/api/favorites/${listingId}`);
+          toast.success("Favorite it");
         }
 
         await request();
         router.refresh();
-        toast.success("Success");
+        
       } catch (error: any) {
         toast.error("Something Went Wrong");
       }

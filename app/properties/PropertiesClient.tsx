@@ -25,7 +25,7 @@ function PropertiesClient({ listings, currentUser }: Props) {
       axios
         .delete(`/api/listings/${id}`)
         .then(() => {
-          toast.info("Listing deleted");
+          toast.success("Cabin deleted successfully");
           router.refresh();
         })
         .catch((error) => {
