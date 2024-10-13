@@ -1,5 +1,6 @@
 # Carbin-Fantasty
-## Full-stack for learning Next.js, Prisma, MongoDB and for more information please wait for a while and welcome pull requests
+## Web platform for learning Next.js, Prisma, MongoDB，TypeScript and embedded with MongoDB Cloud、Cloudinary、Intercom
+welcome pull requests
 
 ### Framework Structure Thumbnai
-![Cabin Image](https://github.com/294916437/cabin-fantasy/public/struture.png)
+![Cabin Image](https://github.com/294916437/cabin-fantasy/public/struture.png](https://github.com/294916437/cabin-fantasy/blob/main/public/struture.png)
