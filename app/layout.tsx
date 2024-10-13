@@ -3,7 +3,7 @@ import { Nunito } from 'next/font/google';
 import "../styles/globals.css";
 import getCurrentUser from "./actions/getCurrentUser";
 import { Analytics } from "@vercel/analytics/react";
-
+import crypto from 'crypto';
 const ClientOnly = dynamic(() => import('@/components/ClientOnly'), { ssr: false });
 const Footer = dynamic(() => import('@/components/Footer'));
 const ToastContainerBar = dynamic(() => import('@/components/ToastContainerBar'), { ssr: false });
@@ -13,6 +13,7 @@ const RentModal = dynamic(() => import('@/components/models/RentModal'), { ssr: 
 const SearchModal = dynamic(() => import('@/components/models/SearchModal'), { ssr: false });
 const ProfileModal = dynamic(() => import('@/components/models/ProfileModal'), { ssr: false });
 const Navbar = dynamic(() => import('@/components/navbar/Navbar'),{ ssr: false });
+const IntercomChat = dynamic(() => import('@/components/models/IntercomChat'),{ ssr: false });
 
 export const metadata = {
   title: "Cabin Fantasy",
@@ -26,7 +27,7 @@ const font = Nunito({
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const currentUser = await getCurrentUser();
-
+  
   return (
     <html lang='en'>
       <body className={font.className}>
@@ -38,6 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <RentModal />
           <ProfileModal currentUser={currentUser}/>
           <Navbar currentUser={currentUser} />
+          <IntercomChat currentUser={currentUser}/>
         <div className='pb-20 pt-28'>{children}</div>
         <Footer />
         </ClientOnly>
