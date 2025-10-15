@@ -1,8 +1,8 @@
 # Carbin-Fantasty
 
-### Full-stack for learning Next.js, Prisma, MongoDB and for more information please wait for a while and welcome pull requests
+### Full-stack for learning Next.js, Prisma, MongoDB and Serveless
 
-**tech-stack
+>tech-stack
 
 - Next.js Framework(using SSR)
 - TailwindCSS & Ant Design (UI&styles)
