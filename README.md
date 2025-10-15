@@ -14,4 +14,4 @@
 
 ### Framework Structure Thumbnai
 
-![Cabin Image](https://github.com/294916437/cabin-fantasy/public/struture.png)
+![image](https://github.com/294916437/cabin-fantasy/blob/main/public/struture.png)

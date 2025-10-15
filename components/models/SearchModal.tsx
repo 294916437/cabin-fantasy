@@ -181,7 +181,7 @@ function SearchModal({}: Props) {
       secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
       secondaryActionLabel={secondActionLabel}
       title='Filters'
-      actionLabel='Search'
+      actionLabel={step === STEPS.INFO ? "Search" : "Next"}
       body={bodyContent}
     />
   );

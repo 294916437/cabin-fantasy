@@ -8,20 +8,20 @@ import "react-toastify/dist/ReactToastify.css";
 type Props = {};
 
 function ToastContainerBar({}: Props) {
-  return (
-    <>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnFocusLoss
-        pauseOnHover
-        theme="colored"
-      />
-    </>
-  );
+	return (
+		<>
+			<ToastContainer
+				position='bottom-right'
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				pauseOnFocusLoss
+				pauseOnHover
+				theme='colored'
+			/>
+		</>
+	);
 }
 
 export default ToastContainerBar;
