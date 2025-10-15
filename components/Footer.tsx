@@ -53,7 +53,7 @@ function Footer({}: Props) {
       </div>
       <div className='flex justify-center items-center bg-gray-100 m-auto w-full gap-8 text-first'>
         <p >
-          &copy;By Asams Morgan All rights reserved
+          &copy;By TheoyuDu All rights reserved
         </p>
         <p className="font-bold underline  cursor-pointer">
           <a href="https://github.com/294916437/cabin-fantasy" target="_blank" rel="noopener noreferrer">

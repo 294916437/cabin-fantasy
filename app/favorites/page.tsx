@@ -8,8 +8,10 @@ import FavoritesClient from "./FavoritesClient";
 type Props = {};
 
 const FavoritePage = async (props: Props) => {
-  const currentUser = await getCurrentUser();
-  const listings = await getFavoriteListings();
+  const [currentUser, listings] = await Promise.all([
+    getCurrentUser(),
+    getFavoriteListings()
+  ]);
 
   if (!currentUser) {
     return (

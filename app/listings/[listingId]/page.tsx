@@ -10,9 +10,11 @@ interface IParams {
 }
 
 const ListingPage = async ({ params }: { params: IParams }) => {
-  const listing = await getListingById(params);
-  const reservations = await getReservation(params);
-  const currentUser = await getCurrentUser();
+  const [listing, reservations, currentUser] = await Promise.all([
+    getListingById(params),
+    getReservation(params),
+    getCurrentUser()
+  ]);
 
   if (!listing) {
     return (

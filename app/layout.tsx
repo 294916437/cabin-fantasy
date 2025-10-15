@@ -3,7 +3,6 @@ import { Nunito } from 'next/font/google';
 import "../styles/globals.css";
 import getCurrentUser from "./actions/getCurrentUser";
 import { Analytics } from "@vercel/analytics/react";
-import crypto from 'crypto';
 const ClientOnly = dynamic(() => import('@/components/ClientOnly'), { ssr: false });
 const Footer = dynamic(() => import('@/components/Footer'));
 const ToastContainerBar = dynamic(() => import('@/components/ToastContainerBar'), { ssr: false });

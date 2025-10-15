@@ -81,7 +81,6 @@ function Offers({}: Props) {
             </motion.div>
           ))}
         </div>
-        {/* another row */}
         <div className="flex flex-col gap-2">
           {offersRowTwo.map((item, index) => (
             <motion.div

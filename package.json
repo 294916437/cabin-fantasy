@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint"
   },
+  
+
   "dependencies": {
     "@intercom/messenger-js-sdk": "^0.0.14",
     "@next-auth/prisma-adapter": "^1.0.5",
